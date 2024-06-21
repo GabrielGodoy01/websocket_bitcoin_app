@@ -8,7 +8,6 @@ class BitcoinWebsocketMock implements IBitcoinWebsocket {
   Function(BitcoinModel)? onDataReceived;
 
   BitcoinWebsocketMock() {
-    print('criado');
     Timer.periodic(const Duration(seconds: 1), (timer) {
       if (onDataReceived != null) {
         onDataReceived!(
