@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mvc_template/app/controllers/bitcoin_controller.dart';
-import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {
@@ -26,25 +25,22 @@ class _HomePageState extends State<HomePage> {
                 child: Text(controller.errorMessage!,
                     style: const TextStyle(color: Colors.red)));
           }
-          return Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              if (controller.bitcoinPrice != null)
-                Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Text(
-                    '\$${double.tryParse(controller.bitcoinPrice!)?.toStringAsFixed(2) ?? '0.00'}',
-                  ),
-                )
-              else
-                const CircularProgressIndicator(),
-              ElevatedButton(
-                onPressed: () {
-                  context.go('/');
-                },
-                child: const Text('Go back'),
-              )
-            ],
+          return Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                if (controller.bitcoinPrice != null)
+                  Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Text(
+                      'R\$${double.tryParse(controller.bitcoinPrice!)?.toStringAsFixed(2) ?? '0.00'}',
+                    ),
+                  )
+                else
+                  const CircularProgressIndicator(),
+              ],
+            ),
           );
         },
       ),
