@@ -1,13 +1,14 @@
 import 'dart:async';
 
 import 'package:flutter_mvc_template/app/models/bitcoin_model.dart';
-import 'package:flutter_mvc_template/app/repositories/user/bitcoin_repository.dart';
+import 'package:flutter_mvc_template/app/repositories/bitcoin_websocket.dart';
 
-class BitcoinRepositoryMock implements BitcoinRepository {
+class BitcoinWebsocketMock implements IBitcoinWebsocket {
   @override
   Function(BitcoinModel)? onDataReceived;
 
-  BitcoinRepositoryMock() {
+  BitcoinWebsocketMock() {
+    print('criado');
     Timer.periodic(const Duration(seconds: 1), (timer) {
       if (onDataReceived != null) {
         onDataReceived!(
