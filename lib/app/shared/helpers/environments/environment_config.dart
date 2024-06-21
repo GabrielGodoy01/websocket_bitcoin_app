@@ -1,27 +1,29 @@
 // ignore_for_file: constant_identifier_names
 
-import 'package:flutter_mvc_template/app/repositories/user/dio_user_repository.dart';
-import 'package:flutter_mvc_template/app/repositories/user/mock_user_repository.dart';
-import 'package:flutter_mvc_template/app/repositories/user/user_repository.dart';
+import 'package:flutter_mvc_template/app/repositories/user/bitcoin_repository_websocket.dart';
+import 'package:flutter_mvc_template/app/repositories/user/bitcoin_repository_mock.dart';
+import 'package:flutter_mvc_template/app/repositories/user/bitcoin_repository.dart';
 import 'package:flutter_mvc_template/app/shared/helpers/enums/environment_enum.dart';
 
 class EnvironmentConfig {
-  static const MSS_BASE_URL = String.fromEnvironment('MSS_BASE_URL');
+  static const WSS_BASE_URL = String.fromEnvironment('WSS_BASE_URL');
   static const ENV = String.fromEnvironment(
     'ENV',
   );
 
-  static UserRepository getUserRepo() {
+  static BitcoinRepository getUserRepo() {
     EnvironmentEnum value = EnvironmentEnum.values.firstWhere(
       (element) {
         return element.name.toUpperCase() == ENV.toUpperCase();
       },
-      orElse: () => EnvironmentEnum.DEV,
+      orElse: () => EnvironmentEnum.LOCAL,
     );
-    if (value == EnvironmentEnum.DEV) {
-      return MockUserRepository();
+    if (value == EnvironmentEnum.LOCAL) {
+      return BitcoinRepositoryMock();
     } else {
-      return DioUserRepository();
+      return BitcoinRepositoryWebsocket(
+        WSS_BASE_URL,
+      );
     }
   }
 }
